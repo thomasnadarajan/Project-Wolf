@@ -18,6 +18,7 @@ void special(int key, int, int) {
     default: return;
   }
   glutPostRedisplay();
+  
 }
 
 // wireBox(w, h, d) makes a wireframe box with width w, height h and
