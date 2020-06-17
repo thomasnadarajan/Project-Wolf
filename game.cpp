@@ -1,54 +1,28 @@
-#include <GL/glut.h>
-float vertices[4][2];
+#include "Object.h"
+#include <cstdio>
+MotionObject square(0, 0, 1, 1, 0.1);
 void special(int key, int, int) {
-  switch (key) {
-    case GLUT_KEY_LEFT: 
-        for (int i =0; i < 4; i ++) {
-            vertices[i][0] -= 0.1f;
-        }
-        break;
-    case GLUT_KEY_RIGHT: 
-        for (int i =0; i < 4; i ++) {
-            vertices[i][0] += 0.1f;
-        }
-        break;
-    case GLUT_KEY_UP: 
-        for (int i =0; i < 4; i ++) {
-            vertices[i][1] += 0.1f;
-        }
-        break;
-    case GLUT_KEY_DOWN: 
-        for (int i =0; i < 4; i ++) {
-            vertices[i][1] -= 0.1f;
-        }
-        break;
-    default: return;
-  }
+    square.move(key);
   glutPostRedisplay();
 }
 
+void draw(Object& o) {
+    glBegin(GL_QUADS);
+      for (int i = 0; i < 4; i++) {
+          //printf("%f\n", o.vertices[i][0]);
+          glVertex2f(o.vertices[i][0], o.vertices[i][1]);
+      }
+}
 void display() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Set background color to black and opaque
    glClear(GL_COLOR_BUFFER_BIT);         // Clear the color buffer (background)
  
    // Draw a Red 1x1 Square centered at origin
-   glBegin(GL_QUADS);              // Each set of 4 vertices form a quad
-      for (int i = 0; i < 4; i++) {
-          glVertex2f(vertices[i][0], vertices[i][1]);
-      }
+   draw(square);
    glEnd();
- 
    glFlush();
 }
 int main(int argc, char ** argv) {
-    vertices[0][0] = -0.5f; 
-    vertices[0][1] = -0.5f;
-    vertices[1][0] = -0.5f;
-    vertices[1][1] = 0.5f;
-    vertices[2][0] = 0.5f;
-    vertices[2][1] = -0.5f;
-    vertices[3][0] = 0.5f;
-    vertices[3][1] = 0.5f;
     glutInit(&argc, argv);                 // Initialize GLUT
    glutCreateWindow("OpenGL Setup Test"); // Create a window with the given title
    glutInitWindowSize(320, 320);   // Set the window's initial width & height
