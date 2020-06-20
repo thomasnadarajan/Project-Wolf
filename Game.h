@@ -15,7 +15,8 @@ class Chunk {
 };
 class Map {
     private:
-        std::map<std::tuple<int, int>, Chunk> maps;
+        std::map<std::tuple<int, int>, Chunk&> maps;
+        std::vector<Chunk> chunks;
 
 };
 
