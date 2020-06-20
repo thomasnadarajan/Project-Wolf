@@ -14,22 +14,14 @@ class Hitbox {
         int y;
         int dx;
         int dy;
-    
-        bool intersects(Hitbox box);
         Hitbox (int ox, int oy, int oh, int ow);
-        
+        bool intersects(Hitbox box);
 };
 class CollisionObject{
-    
     public:
-        std::vector<Hitbox> hitboxes;
         int num_hitboxes;
-        Hitbox main_hitbox; // a hitbox that surrounds all the other hitboxes
-
         CollisionObject(std::vector<Hitbox> hbs);
-
-
+        std::vector<Hitbox> hitboxes;
+        Hitbox main_hitbox; // a hitbox that surrounds all the other hitboxes
         bool intersects (CollisionObject box);
-}
-
 };

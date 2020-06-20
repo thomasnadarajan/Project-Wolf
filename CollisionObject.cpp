@@ -1,30 +1,23 @@
 #include <iostream>
 #include <vector>
-#include "Object.h"
 #include "CollisionObject.h"
 /*
 Comments:
 Collision between 2 objects is "done" for the most part but not tested at all.
 So it probably has a mistake.
 */
-bool Hitbox::intersects(Hitbox box){ 
-    return !(x> box.dx || box.x > dx || y > box.dy || box.y > dy)
-}
 Hitbox::Hitbox (int ox, int oy, int oh, int ow) {
     x = ox;
     y = oy; 
     dx = oh;
     dy = ow;
 }
-
-
-
 CollisionObject::CollisionObject(std::vector<Hitbox> hbs) {
             Hitbox temp_h = hbs[0];
-            x = temp_h.x;
-            y = temp_h.y;
-            dx = temp_h.dx;
-            dy = temp_h.dy;
+            int x = temp_h.x;
+            int y = temp_h.y;
+            int dx = temp_h.dx;
+            int dy = temp_h.dy;
             
             for (auto hb: hbs){
                 num_hitboxes++;
@@ -43,6 +36,9 @@ CollisionObject::CollisionObject(std::vector<Hitbox> hbs) {
                 hitboxes.push_back(hb);
             }
             main_hitbox = Hitbox(x,y,dx,dy);
+}
+bool Hitbox::intersects(Hitbox box){ 
+    return !(x> box.dx || box.x > dx || y > box.dy || box.y > dy);
 }
 
 bool CollisionObject::intersects (CollisionObject box){

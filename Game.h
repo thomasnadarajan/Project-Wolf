@@ -1,5 +1,6 @@
 #include "Object.h"
 #include <vector>
+#include <unordered_map> 
 class Player: public MotionObject {
     private:
         int health_points;
@@ -33,3 +34,10 @@ class Game {
         }
 
 };
+
+class Map {
+    private:
+        std::unordered_map<
+
+}
+
