@@ -1,34 +1,43 @@
-#include "Object.h"
+//#include "Game.h"
 #include <cstdio>
+#include "Object.h"
 MotionObject square(0, 0, 1, 1, 0.1);
 void special(int key, int, int) {
     square.move(key);
   glutPostRedisplay();
 }
+void mouseFunc(int x, int y) {
+  /*
+    float direct_vect[2];
+    direct_vect[0] = square.coordinates[0] - x;
+    direct_vect[1] = square.coordinates[1] - y;
+    float rot = atan2(-direct_vect[1], direct_vect[0]);
+    glRotatef(rot, 0, 0, 0);
+    glutPostRedisplay();
+    */
+}
 
 void draw(Object& o) {
     glBegin(GL_QUADS);
       for (int i = 0; i < 4; i++) {
-          //printf("%f\n", o.vertices[i][0]);
           glVertex2f(o.vertices[i][0], o.vertices[i][1]);
       }
 }
 void display() {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); // Set background color to black and opaque
-   glClear(GL_COLOR_BUFFER_BIT);         // Clear the color buffer (background)
- 
-   // Draw a Red 1x1 Square centered at origin
+glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
+   glClear(GL_COLOR_BUFFER_BIT);         
    draw(square);
    glEnd();
    glFlush();
 }
 int main(int argc, char ** argv) {
-    glutInit(&argc, argv);                 // Initialize GLUT
-   glutCreateWindow("OpenGL Setup Test"); // Create a window with the given title
-   glutInitWindowSize(320, 320);   // Set the window's initial width & height
-   glutInitWindowPosition(50, 50); // Position the window's initial top-left corner
+    glutInit(&argc, argv);          
+   glutCreateWindow("Project Wolf"); 
+   glutInitWindowSize(320, 320);  
+   glutInitWindowPosition(50, 50); 
    glutDisplayFunc(display);
    glutSpecialFunc(special);
-   glutMainLoop();           // Enter the event-processing loop
+   glutPassiveMotionFunc(mouseFunc);
+   glutMainLoop();
    return 0;
 }

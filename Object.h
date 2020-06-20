@@ -1,9 +1,12 @@
 #include <math.h>
+#include <stdio.h>
 #include <GL/glut.h>
 #include <cstdio>
+//#include "CollisionObject.h"
 class Object {
     public:
         double vertices[4][2];
+    protected:
         int coordinates[2];
     public:
         Object(double x, double y, double width, double height) {
@@ -27,6 +30,14 @@ class Object {
                     }
                 }
             }
+            coordinates[0] = x;
+            coordinates[1] = y;
+        }
+        double* getCoords() {
+            double* coords = (double *) malloc(sizeof(int) * 2);
+            coords[0] = (vertices[2][0] - vertices[0][0]) / 2.0;
+            coords[1] = (vertices[2][1] - vertices[0][1]) / 2.0;
+            return coords;
         }
 };
 class MotionObject: public Object {
