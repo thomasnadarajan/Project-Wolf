@@ -7,6 +7,7 @@ class Player: public MotionObject {
         int health_points;
     public:
         Player(double x, double y, double width, double height, double move);
+        void move(int key);
 };
 class Chunk {
     private:
@@ -22,12 +23,11 @@ class Map {
 };
 
 class Game {
-    private:
+    public:
         int running;
         double move;
         int game_over;
         Player p;
-    public:
         Game(double x, double y, double width, double height, double move);
 };
 
