@@ -1,15 +1,23 @@
 #include "Object.h"
 #include <vector>
-#include <unordered_map> 
+#include <map>
+#include <tuple>
 class Player: public MotionObject {
     private:
         int health_points;
-        //Collision col(this);
     public:
-        Player(double x, double y, double width, double height, double move): MotionObject(x, y, width, height, move) {
-            health_points = 100;
-        }
+        Player(double x, double y, double width, double height, double move): MotionObject(x, y, width, height, move);
 };
+class Chunk {
+    public:
+        std::vector<Object> chunk_objects;
+        Chunk(std::vector<Object> objs);
+};
+class Map {
+    private:
+        std::map<std::tuple<int, int>, Chunk> maps;
+
+}
 
 class Game {
     private:
@@ -19,25 +27,9 @@ class Game {
         Player p;
         std::vector<Object> objects;
     public:
-        Game(double x, double y, double width, double height, double move) {
-            p(x, y, width, height, move);
-        }
-        void add_object(double x, double y, double width, double height, int motion) {
-            if (motion == 1) {
-                MotionObject o(x, y, width, height, );
-                objects.insert(o);
-            }
-            else {
-                Object o(x, y, width, height);
-                objects.insert(o);
-            }
-        }
-
+        Game(double x, double y, double width, double height, double move);
+        void add_object(double x, double y, double width, double height, int motion);
 };
 
-class Map {
-    private:
-        std::unordered_map<
 
-}
 
