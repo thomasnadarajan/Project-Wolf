@@ -1,6 +1,5 @@
-//#include "Game.h"
+#include "Game.h"
 #include <cstdio>
-#include "Object.h"
 MotionObject square(0, 0, 1, 1, 0.1);
 void special(int key, int, int) {
     square.move(key);
