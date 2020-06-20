@@ -28,6 +28,7 @@ class Game {
             }
             else {
                 Object o(x, y, width, height);
+                objects.insert(o);
             }
         }
 
