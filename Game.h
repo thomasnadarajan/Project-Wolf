@@ -17,7 +17,7 @@ class Map {
     private:
         std::map<std::tuple<int, int>, Chunk> maps;
 
-}
+};
 
 class Game {
     private:
