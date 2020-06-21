@@ -1,14 +1,17 @@
 #include "Game.h"
 #include <cstdio>
 #include <png.h>
-Game g(0, 0, 1, 1, 0.1);
-
+Game g(0, 0, 10, 10, 0.1);
+Object random_block = Object(30,30,10,20);
 void special(int key, int, int) {
     g.p.move(key);
   glutPostRedisplay();
 }
 void all_obj_draw() {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
+    glClear(GL_COLOR_BUFFER_BIT);     
     draw_vertices(g.p);
+    draw_vertices(random_block);
     glFlush();
 }
 void mouseFunc(int x, int y) {

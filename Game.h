@@ -8,6 +8,7 @@ class Player: public MotionObject {
     public:
         Player(double x, double y, double width, double height, double move);
         void move(int key);
+        std::vector<Object> map;
 };
 class Chunk {
     private:

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Game.h"
-Player::Player(double x, double y, double width, double height, double move) : MotionObject(x, y, width, height, move){
+Player::Player(double x, double y, double width, double height, double move) : MotionObject(x, y, width, height, move)  {
+    map = {Object(30,30,10,20)};
     health_points = 100;
 }
 
@@ -25,16 +26,17 @@ void Map::add_chunk(std::vector<std::tuple<double, double, double, double, int, 
 }
 
 void Player::move(int key) {
+
     if (key == GLUT_KEY_LEFT) {
-        force_move(-1, 0);
+        MotionObject::move(-1, 0,map);
     }
     else if (key ==GLUT_KEY_RIGHT) {
-        force_move(1, 0);
+        MotionObject::move(1, 0,map);
     }
     else if (key == GLUT_KEY_UP) {
-        force_move(0, 1);
+        MotionObject::move(0, 1,map);
     }
     else if (key == GLUT_KEY_DOWN) {
-        force_move(0, -1);
+        MotionObject::move(0, -1,map);
     }
 }
