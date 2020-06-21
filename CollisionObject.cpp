@@ -10,10 +10,7 @@ Hitbox::Hitbox (int ox, int oy, int oh, int ow) {
     width = oh;
     height = ow;
 }
-Hitbox::Hitbox() {}
-
-bool Hitbox::intersects(Hitbox box){ 
-    return !(x> box.dx || box.x > dx || y > box.dy || box.y > dy);
+Hitbox::Hitbox() {
 }
 bool Hitbox::intersects(Hitbox box){ 
     return !(x> box.x+box.width || box.x > width+x || y > box.height+box.y || box.y > height+y);
@@ -60,5 +57,3 @@ bool CollisionObject::intersects (CollisionObject box){
     }
     return false;
 }
-
-
