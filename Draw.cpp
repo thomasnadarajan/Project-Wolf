@@ -9,6 +9,5 @@ void draw_vertices(Object& obj) {
     glVertex2f(obj.hitbox.main_hitbox.x - obj.hitbox.main_hitbox.width, obj.hitbox.main_hitbox.y + obj.hitbox.main_hitbox.height);
     glVertex2f(obj.hitbox.main_hitbox.x + obj.hitbox.main_hitbox.width, obj.hitbox.main_hitbox.y + obj.hitbox.main_hitbox.height);
     glEnd();
-    glFlush();
 }
 

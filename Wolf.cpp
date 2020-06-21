@@ -9,6 +9,7 @@ void special(int key, int, int) {
 }
 void all_obj_draw() {
     draw_vertices(g.p);
+    glFlush();
 }
 void mouseFunc(int x, int y) {
   /*
