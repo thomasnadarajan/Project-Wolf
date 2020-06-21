@@ -1,21 +1,30 @@
-#include <math.h>
-#include <GL/glut.h>
-#include <cstdio>
-//#include "CollisionObject.h"
+#include "CollisionObject.h"
 class Object {
     public:
-        double vertices[4][2];
-        
+        CollisionObject hitbox;
     public:
         Object(double x, double y, double width, double height);
-        int coordinates[2];
+        bool check_collisions(std::vector<Object> objects);
+
 };
 class MotionObject: public Object {
-    protected:
-        double movement_iter;
+    private:
+        double x_move;
+        double y_move;
+        bool momentum;
+        int friction;
     public:
-        MotionObject(double x, double y, double width, double height, double m) : Object(x, y, width, height) {
-            movement_iter = m;
+        MotionObject(double x, double y, double width, double height) : Object(x, y, width, height){
+            momentum = false; friction = 0; x_move=0; y_move=0;
         }
-        void move();
+        MotionObject(double x, double y, double width, double height,int f) : Object(x, y, width, height){
+            momentum =true; friction = f; x_move=0; y_move=0;
+        }
+
+        bool check_move(int dx,int dy, std::vector<Object> objects);
+
+        void force_move(int dx,int dy);
+
+        void move(int dx,int dy, std::vector<Object> objects);
+    
 };

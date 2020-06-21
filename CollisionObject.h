@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include "Object.h"
 /*
 Comments:
 Collision between 2 objects is "done" for the most part but not tested at all.
