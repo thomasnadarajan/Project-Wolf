@@ -9,8 +9,8 @@ class Hitbox {
     public:
         int x;
         int y;
-        int dx;
-        int dy;
+        int width;
+        int height;
         Hitbox (int ox, int oy, int oh, int ow);
         Hitbox ();
         bool intersects(Hitbox box);

@@ -7,21 +7,25 @@ So it probably has a mistake.
 Hitbox::Hitbox (int ox, int oy, int oh, int ow) {
     x = ox;
     y = oy; 
-    dx = oh;
-    dy = ow;
+    width = oh;
+    height = ow;
 }
 Hitbox::Hitbox() {}
 
 bool Hitbox::intersects(Hitbox box){ 
     return !(x> box.dx || box.x > dx || y > box.dy || box.y > dy);
 }
+bool Hitbox::intersects(Hitbox box){ 
+    return !(x> box.x+box.width || box.x > width+x || y > box.height+box.y || box.y > height+y);
+}
+
 
 CollisionObject::CollisionObject(std::vector<Hitbox> hbs) {
         Hitbox temp_h = hbs[0];
         int x = temp_h.x;
         int y = temp_h.y;
-        int dx = temp_h.dx;
-        int dy = temp_h.dy;
+        int width = temp_h.width;
+        int height = temp_h.height;
         hitboxes = {};
         
         for (auto hb: hbs){
@@ -29,18 +33,18 @@ CollisionObject::CollisionObject(std::vector<Hitbox> hbs) {
             if (x > hb.x){
                 x = hb.x;
             }
-            if (dx < hb.dx){
-                x = hb.dx;
+            if (width < hb.width){
+                x = hb.width;
             }
             if (y > hb.y){
                 y = hb.y;
             }
-            if (dy < hb.dy){
-                dy = hb.dy;
+            if (height < hb.height){
+                height = hb.height;
             }
             hitboxes.push_back(hb);
         }
-        main_hitbox = Hitbox(x,y,dx,dy);
+        main_hitbox = Hitbox(x,y,width,height);
 }
 
 bool CollisionObject::intersects (CollisionObject box){
