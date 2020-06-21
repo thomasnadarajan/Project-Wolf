@@ -1,7 +1,6 @@
 #include "Object.h"
 
-Object::Object(double x, double y, double width, double height): hitbox(CollisionObject({Hitbox(x,y,width,height)})){
-}
+Object::Object(double x, double y, double width, double height): hitbox(CollisionObject({Hitbox(x,y,width,height)})){}
 
 bool Object::check_collisions(std::vector<Object> objects) {
     for (auto obj: objects){
@@ -32,7 +31,7 @@ void MotionObject::move(int dx,int dy, std::vector<Object> objects){
     if (check_move(dx ,dy ,objects)){
         force_move(dx+x_move,dy+y_move);
     }
-
+    
 }
 
 

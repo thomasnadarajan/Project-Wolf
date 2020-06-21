@@ -1,8 +1,8 @@
-#include "CollisionObject.cpp"
+#include "CollisionObject.h"
 class Object {
     public:
         CollisionObject hitbox;
-    public:
+        int health_points;
         Object(double x, double y, double width, double height);
         bool check_collisions(std::vector<Object> objects);
 
@@ -26,5 +26,6 @@ class MotionObject: public Object {
         void force_move(int dx,int dy);
 
         void move(int dx,int dy, std::vector<Object> objects);
-    
+        
+
 };

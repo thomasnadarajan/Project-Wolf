@@ -25,24 +25,19 @@ void Map::add_chunk(std::vector<std::tuple<double, double, double, double, int, 
 }
 
 void Player::move(int key) {
+    /*
+    printf("Move Iter: %f\n", movement_iter);
     if (key == GLUT_KEY_LEFT) {
-        for (int i = 0; i < 4; i++) {
-            vertices[i][0] -= movement_iter;
-        }
+        force_move(-m)
     }
     else if (key ==GLUT_KEY_RIGHT) {
-        for (int i = 0; i < 4; i++) {
-            vertices[i][0] += movement_iter;
-        }
+        coordinates[0] += movement_iter;
     }
     else if (key == GLUT_KEY_UP) {
-        for (int i = 0; i < 4; i++) {
-            vertices[i][1] += movement_iter;
-        }
+        coordinates[1] += movement_iter;
     }
     else if (key == GLUT_KEY_DOWN) {
-        for (int i = 0; i < 4; i++) {
-            vertices[i][1] -= movement_iter;
-        }
+        coordinates[1] -= movement_iter;
     }
+    */
 }
