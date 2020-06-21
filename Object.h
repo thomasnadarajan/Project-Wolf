@@ -9,16 +9,16 @@ class Object {
 };
 class MotionObject: public Object {
     private:
-        double x_move;
-        double y_move;
+        int x_vel;
+        int y_vel;
         bool momentum;
         int friction;
     public:
         MotionObject(double x, double y, double width, double height) : Object(x, y, width, height){
-            momentum = false; friction = 0; x_move=0; y_move=0;
+            momentum = false; friction = 0; x_vel=0; y_vel=0;
         }
         MotionObject(double x, double y, double width, double height,int f) : Object(x, y, width, height){
-            momentum =true; friction = f; x_move=0; y_move=0;
+            momentum =true; friction = f; x_vel=0; y_vel=0;
         }
 
         bool check_move(int dx,int dy, std::vector<Object> objects);
