@@ -1,7 +1,7 @@
 #include <iostream>
 #include "Game.h"
 Player::Player(double x, double y, double width, double height, double move) : MotionObject(x, y, width, height, move)  {
-    map = {Object(30,30,10,20)};
+    
     health_points = 100;
 }
 
@@ -24,19 +24,31 @@ void Map::add_chunk(std::vector<std::tuple<double, double, double, double, int, 
     }
     chunks.insert(std::pair<std::tuple<int, int>, Chunk>(set, c));
 }
+std::vector<Object> * Chunk::get_objects() {
+    return &objects;
+}
+Chunk * Map::get_chunk(std::tuple<int, int> set) {
+    for (auto elem : chunks) {
+        if ((std::get<0>(set) >= std::get<0>(elem.first) && std::get<0>(set) < std::get<0>(elem.first) + width) &&
+            (std::get<1>(set) >= std::get<1>(elem.first) && std::get<0>(set) < std::get<1>(elem.first) + height)) {
+                Chunk c = std::get<1>(elem);
+                return &c;
+            }
+    }
+    return NULL;
+}
 
-void Player::move(int key) {
-
+void Player::move(Chunk& cur_chunk, int key) {
     if (key == GLUT_KEY_LEFT) {
-        MotionObject::move(-1, 0,map);
+        MotionObject::move(-1, 0, *(cur_chunk.get_objects()));
     }
     else if (key ==GLUT_KEY_RIGHT) {
-        MotionObject::move(1, 0,map);
+        MotionObject::move(1, 0,*(cur_chunk.get_objects()));
     }
     else if (key == GLUT_KEY_UP) {
-        MotionObject::move(0, 1,map);
+        MotionObject::move(0, 1,*(cur_chunk.get_objects()));
     }
     else if (key == GLUT_KEY_DOWN) {
-        MotionObject::move(0, -1,map);
+        MotionObject::move(0, -1,*(cur_chunk.get_objects()));
     }
 }
