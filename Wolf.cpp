@@ -5,6 +5,7 @@ Game g(0, 0, 10, 10, 0.1);
 //Object random_block = Object(30,30,10,20);
 
 void init() {
+    g.m.set_props(1, 1);
     auto obj_tup = std::make_tuple(30, 30, 10, 20, 0, -1);
     auto pos_tup = std::make_tuple(0,0);
     std::vector<std::tuple<double, double, double, double, int, double>> vect;
@@ -13,11 +14,12 @@ void init() {
 }
 void special(int key, int, int) {
     
-    Chunk * c = g.m.get_chunk(std::make_tuple(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y));
-    std::vector<Object> * objs = c->get_objects();
-    Object o = (*objs)[0];
+    Chunk c = g.m.get_chunk(std::make_tuple(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y));
+    std::vector<Object> objs = c.get_objects();
+    Object o = (objs)[0];
     //printf("%d", (std::get<0>(*objs))->)
-    g.p.move(*c, key);
+    exit(1);
+    g.p.move(c, key);
   glutPostRedisplay();
 }
 void all_obj_draw() {
@@ -25,12 +27,11 @@ void all_obj_draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
     glClear(GL_COLOR_BUFFER_BIT);     
     draw_vertices(g.p);
-    Chunk * chunk;
-    if ((chunk = g.m.get_chunk(pos_tup))) {
-        std::vector<Object> * objs = chunk->get_objects();
-        for (auto obj : *objs) {
-            draw_vertices(obj);
-        }
+    Chunk chunk;
+    chunk = g.m.get_chunk(pos_tup);
+    std::vector<Object> objs = chunk.get_objects();
+    for (auto obj : objs) {
+        draw_vertices(obj);
     }
     glFlush();
 }
@@ -48,7 +49,8 @@ void mouseFunc(int x, int y) {
 }
 
 int main(int argc, char ** argv) {
-    glutInit(&argc, argv);          
+    glutInit(&argc, argv);
+    init();          
    glutCreateWindow("Project Wolf"); 
    glutInitWindowSize(800, 800);  
    glutInitWindowPosition(80, 80); 

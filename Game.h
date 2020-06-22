@@ -7,7 +7,7 @@ class Chunk {
         std::vector<Object> objects;
     public:
         void add_object(double x, double y, double width, double height, int motion, double incr);
-        std::vector<Object> * get_objects();
+        std::vector<Object>& get_objects();
 
 };
 class Player: public MotionObject {
@@ -25,7 +25,8 @@ class Map {
         int width;
         int height;
         void add_chunk(std::vector<std::tuple<double, double, double, double, int, double>> vect, std::tuple<int, int> set);
-        Chunk * get_chunk(std::tuple<int, int> position);
+        void set_props(int width, int height);
+        Chunk& get_chunk(std::tuple<int, int> position);
         std::map<std::tuple<int, int>, Chunk> chunks;
 };
 
