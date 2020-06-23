@@ -30,6 +30,7 @@ void MotionObject::force_move(int dx,int dy){
     hitbox.main_hitbox.x+=dx;
     hitbox.main_hitbox.y+=dy;
     printf("New x: %d", hitbox.main_hitbox.x);
+    
 }
 
 void MotionObject::move(int dx,int dy, std::vector<Object> objects){
