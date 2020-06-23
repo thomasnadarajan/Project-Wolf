@@ -32,8 +32,8 @@ std::vector<Object>& Chunk::get_objects() {
 std::tuple<int, int> Map::get_chunk(std::tuple<int, int> set) {
     //Chunk& ref;
     for (auto elem : chunks) {
-        if ((std::get<0>(set) >= std::get<0>(elem.first) && std::get<0>(set) < std::get<0>(elem.first) + width) &&
-            (std::get<1>(set) >= std::get<1>(elem.first) && std::get<0>(set) < std::get<1>(elem.first) + height)) {
+        if ((std::get<0>(set)/ 100.0 >= std::get<0>(elem.first) / 100.0 && std::get<0>(set) /100.0 < (std::get<0>(elem.first) + width) /100.0) &&
+            (std::get<1>(set)/ 100.0 >= std::get<1>(elem.first) / 100.0 && std::get<1>(set) /100.0 < (std::get<1>(elem.first) + width) /100.0)) {
                 return elem.first;
             }
     }

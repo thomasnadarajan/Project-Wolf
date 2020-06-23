@@ -5,7 +5,7 @@ Game g(0, 0, 10, 10, 0.1);
 //Object random_block = Object(30,30,10,20);
 
 void init() {
-    g.m.set_props(1, 1);
+    g.m.set_props(100, 100);
     auto obj_tup = std::make_tuple(30, 30, 10, 20, 0, -1);
     auto pos_tup = std::make_tuple(0,0);
     std::vector<std::tuple<double, double, double, double, int, double>> vect;
@@ -13,7 +13,6 @@ void init() {
     g.m.add_chunk(vect, pos_tup);
 }
 void special(int key, int, int) {
-    
     auto tup = g.m.get_chunk(std::make_tuple(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y));
     std::vector<Object> objs = g.m.chunks[tup].get_objects();
     g.p.move(objs, key);
