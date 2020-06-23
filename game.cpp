@@ -28,8 +28,7 @@ void Game::draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
     glClear(GL_COLOR_BUFFER_BIT);     
     draw_vertices(p);
-    auto chunk = m.get_chunk(pos_tup);
-    std::vector<Object> objs = m.chunks[chunk].get_objects();
+    std::vector<Object> objs = m.get_nearby_objects(pos_tup);
     for (auto obj : objs) {
         draw_vertices(obj);
     }
@@ -52,13 +51,38 @@ std::vector<Object>& Chunk::get_objects() {
 }
 std::tuple<int, int> Map::get_chunk(std::tuple<int, int> set) {
     //Chunk& ref;
-    for (auto elem : chunks) {
-        if ((std::get<0>(set)/ 100.0 >= std::get<0>(elem.first) / 100.0 && std::get<0>(set) /100.0 < (std::get<0>(elem.first) + width) /100.0) &&
-            (std::get<1>(set)/ 100.0 >= std::get<1>(elem.first) / 100.0 && std::get<1>(set) /100.0 < (std::get<1>(elem.first) + width) /100.0)) {
-                return elem.first;
-            }
+    int a = std::get<0>(set);
+    int b = std::get<1>(set);
+    if (a<0){
+        a = (a/100)-1;
     }
-    return std::make_tuple(-1, -1);
+    else {
+        a /= 100;
+    }
+    if (b < 0){
+        b = (b/100)-1;
+    }
+    else {
+        b /= 100;
+    }
+    
+    return std::make_tuple(a, b);
+}
+
+std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
+    std::tuple<int, int> a = get_chunk(position);
+    std::vector<Object> ans = {};
+    for (int dx = -1; dx <= 1; dx++){
+        for (int dy = -1; dy <= 1; dy++){
+            std::tuple<int, int> x = std::make_tuple(std::get<0>(a)+dx, std::get<0>(a)+dy);
+            if (chunks.count(x)){
+                ans.insert(ans.end(), chunks[x].get_objects().begin(), chunks[x].get_objects().end());
+            }
+        }
+    }
+    return ans;
+
+
 }
 
 void Player::move(std::vector<Object> objs, int key) {
