@@ -15,6 +15,27 @@ void Chunk::add_object(double x, double y, double width, double height, int moti
         objects.push_back(o);
     }
 }
+void Game::init() {
+    m.set_props(100, 100);
+    auto obj_tup = std::make_tuple(30, 30, 10, 20, 0, -1);
+    auto pos_tup = std::make_tuple(0,0);
+    std::vector<std::tuple<double, double, double, double, int, double>> vect;
+    vect.push_back(obj_tup);
+    m.add_chunk(vect, pos_tup);
+}
+void Game::draw() {
+    auto pos_tup = std::make_tuple(0,0);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
+    glClear(GL_COLOR_BUFFER_BIT);     
+    draw_vertices(p);
+    auto chunk = m.get_chunk(pos_tup);
+    std::vector<Object> objs = m.chunks[chunk].get_objects();
+    for (auto obj : objs) {
+        draw_vertices(obj);
+    }
+    glFlush();
+}
+
 void Map::set_props(int width, int height) {
     this->width = width;
     this->height = height;

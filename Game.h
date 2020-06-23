@@ -1,4 +1,5 @@
 #include "Draw.h"
+#include "Event.h"
 #include <vector>
 #include <map>
 #include <tuple>
@@ -37,7 +38,12 @@ class Game {
         double move;
         int game_over;
         Player p;
+        std::vector<Event> event_stack;
         Game(double x, double y, double width, double height, double move);
+        void init();
+        void cleanup();
+        void handle_events();
+        void draw();
 };
 
 
