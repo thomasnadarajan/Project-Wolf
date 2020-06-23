@@ -25,37 +25,32 @@ void Map::add_chunk(std::vector<std::tuple<double, double, double, double, int, 
         c.add_object(std::get<0>(elem), std::get<1>(elem), std::get<2>(elem), std::get<3>(elem), std::get<4>(elem), std::get<5>(elem));
     }
     chunks.insert(std::pair<std::tuple<int, int>, Chunk>(set, c));
-    Chunk q = get_chunk(set);
-    std::vector<Object> objs = q.get_objects();
-    Object a = (objs)[0];
-    printf("%d\n", a.hitbox.main_hitbox.height);
 }
 std::vector<Object>& Chunk::get_objects() {
     return objects;
 }
-Chunk& Map::get_chunk(std::tuple<int, int> set) {
+std::tuple<int, int> Map::get_chunk(std::tuple<int, int> set) {
     //Chunk& ref;
     for (auto elem : chunks) {
         if ((std::get<0>(set) >= std::get<0>(elem.first) && std::get<0>(set) < std::get<0>(elem.first) + width) &&
             (std::get<1>(set) >= std::get<1>(elem.first) && std::get<0>(set) < std::get<1>(elem.first) + height)) {
-                return std::get<1>(elem);
-                //break;
+                return elem.first;
             }
     }
-    //return new Chunk;
+    return std::make_tuple(-1, -1);
 }
 
-void Player::move(Chunk& cur_chunk, int key) {
+void Player::move(std::vector<Object> objs, int key) {
     if (key == GLUT_KEY_LEFT) {
-        MotionObject::move(-1, 0, (cur_chunk.get_objects()));
+        MotionObject::move(-1, 0, objs);
     }
     else if (key ==GLUT_KEY_RIGHT) {
-        MotionObject::move(1, 0,(cur_chunk.get_objects()));
+        MotionObject::move(1, 0,objs);
     }
     else if (key == GLUT_KEY_UP) {
-        MotionObject::move(0, 1,(cur_chunk.get_objects()));
+        MotionObject::move(0, 1,objs);
     }
     else if (key == GLUT_KEY_DOWN) {
-        MotionObject::move(0, -1,(cur_chunk.get_objects()));
+        MotionObject::move(0, -1,objs);
     }
 }

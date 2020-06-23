@@ -5,10 +5,12 @@ Object::Object(double x, double y, double width, double height): hitbox(Collisio
 
 bool Object::check_collisions(std::vector<Object> objects) {
     for (auto obj: objects){
+        printf("get shere\n");
         if (hitbox.main_hitbox.intersects(obj.hitbox.main_hitbox)){
             return true;
         }
     }
+    
     return false;
 
 }
@@ -24,8 +26,10 @@ bool MotionObject::check_move(int dx,int dy, std::vector<Object> objects){
 }
 
 void MotionObject::force_move(int dx,int dy){
+
     hitbox.main_hitbox.x+=dx;
     hitbox.main_hitbox.y+=dy;
+    printf("New x: %d", hitbox.main_hitbox.x);
 }
 
 void MotionObject::move(int dx,int dy, std::vector<Object> objects){

@@ -13,6 +13,7 @@ Hitbox::Hitbox (int ox, int oy, int oh, int ow) {
 Hitbox::Hitbox() {
 }
 bool Hitbox::intersects(Hitbox box){ 
+    //printf("intersection check\n");
     return !(x> box.x+box.width || box.x > width+x || y > box.height+box.y || box.y > height+y);
 }
 

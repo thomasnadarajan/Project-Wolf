@@ -14,22 +14,18 @@ void init() {
 }
 void special(int key, int, int) {
     
-    Chunk c = g.m.get_chunk(std::make_tuple(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y));
-    std::vector<Object> objs = c.get_objects();
-    Object o = (objs)[0];
-    //printf("%d", (std::get<0>(*objs))->)
-    exit(1);
-    g.p.move(c, key);
-  glutPostRedisplay();
+    auto tup = g.m.get_chunk(std::make_tuple(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y));
+    std::vector<Object> objs = g.m.chunks[tup].get_objects();
+    g.p.move(objs, key);
+    glutPostRedisplay();
 }
 void all_obj_draw() {
     auto pos_tup = std::make_tuple(0,0);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
     glClear(GL_COLOR_BUFFER_BIT);     
     draw_vertices(g.p);
-    Chunk chunk;
-    chunk = g.m.get_chunk(pos_tup);
-    std::vector<Object> objs = chunk.get_objects();
+    auto chunk = g.m.get_chunk(pos_tup);
+    std::vector<Object> objs = g.m.chunks[chunk].get_objects();
     for (auto obj : objs) {
         draw_vertices(obj);
     }
@@ -49,15 +45,15 @@ void mouseFunc(int x, int y) {
 }
 
 int main(int argc, char ** argv) {
-    glutInit(&argc, argv);
-    init();          
-   glutCreateWindow("Project Wolf"); 
-   glutInitWindowSize(800, 800);  
-   glutInitWindowPosition(80, 80); 
-   glutDisplayFunc(all_obj_draw);
-   glutSpecialFunc(special);
-   glutPassiveMotionFunc(mouseFunc);
-   glutMainLoop();
+        glutInit(&argc, argv);
+        init();          
+        glutCreateWindow("Project Wolf"); 
+        glutInitWindowSize(800, 800);  
+        glutInitWindowPosition(80, 80); 
+        glutDisplayFunc(all_obj_draw);
+        glutSpecialFunc(special);
+        glutPassiveMotionFunc(mouseFunc);
+        glutMainLoop();
 
    
    return 0;
