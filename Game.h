@@ -1,5 +1,6 @@
 #include "Draw.h"
 #include "EventFunctions.h"
+#include "Sprite.h"
 #include "Event.h"
 #include <vector>
 #include <map>
@@ -18,8 +19,7 @@ class Player: public MotionObject {
     public:
         Player(double x, double y, double width, double height, double move);
         void move(std::vector<Object> objs, int key);
-        // Make this a temporary change.
-        //std::vector<Object> map;
+
 };
 
 class Map {
@@ -40,15 +40,14 @@ class Game {
         double move;
         int game_over;
         Player p;
-        std::map<int, void (*)(Sprite*)> event_map;
-        std::vector<std::tuple<int, Sprite *>> event_queue;
+        std::vector<std::tuple<void (*)(Sprite*), Sprite *>> event_queue;
         Game(double x, double y, double width, double height, double move);
         void init();
         void cleanup();
         void handle_events();
         void draw();
         void update();
-        void enqueue();
+        void enqueue(void (*)(Sprite*));
 };
 
 

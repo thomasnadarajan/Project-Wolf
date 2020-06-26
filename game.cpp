@@ -84,7 +84,9 @@ std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
 
 
 }
-
+void Game::enqueue(void (*fun)(Sprite*), Sprite * s) {
+    event_queue.push_back(std::make_tuple(fun, s));
+}
 void Player::move(std::vector<Object> objs, int key) {
     if (key == GLUT_KEY_LEFT) {
         MotionObject::move(-1, 0, objs);

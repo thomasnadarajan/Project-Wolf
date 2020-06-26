@@ -1,6 +1,8 @@
 #include "Object.h"
 
-Object::Object(double x, double y, double width, double height): hitbox(CollisionObject({Hitbox(x,y,width,height)})){
+Object::Object(double x, double y, double width, double height): hitbox(CollisionObject({Hitbox(x,y,width,height)})){}
+Object::Object(Object& o) {
+    this->hitbox = o.hitbox;
 }
 
 bool Object::check_collisions(std::vector<Object> objects) {
