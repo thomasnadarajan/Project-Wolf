@@ -2,9 +2,9 @@
 #include "GL/glut.h"
 class Object {
     public:
+        double theta;
         CollisionObject hitbox;
         Object(double x, double y, double width, double height);
-        Object(Object& o);
         bool check_collisions(std::vector<Object> objects);
 
 };

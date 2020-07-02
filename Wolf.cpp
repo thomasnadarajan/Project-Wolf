@@ -15,9 +15,9 @@ void all_obj_draw() {
     g.draw();
 }
 void mouseFunc(int x, int y) {
-    /*
+    
     int direct_vect[2];
-    direct_vect[0] = x- g.p.hitbox.main_hitbox.x;
+    direct_vect[0] = x - g.p.hitbox.main_hitbox.x;
     direct_vect[1] = y - g.p.hitbox.main_hitbox.y;
     glTranslatef(-g.p.hitbox.main_hitbox.x, -g.p.hitbox.main_hitbox.y, 0);
     
@@ -28,7 +28,7 @@ void mouseFunc(int x, int y) {
     glRotatef(rot, 0, 0, 1);
     glTranslatef(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y, 0);
     glutPostRedisplay();
-    */
+    
 }
 
 int main(int argc, char ** argv) {

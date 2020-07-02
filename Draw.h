@@ -1,4 +1,4 @@
-#include "Object.h"
+#include "Sprite.h"
 /*
 coordinates go -100,100 on the screen
 */
