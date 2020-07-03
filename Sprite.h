@@ -2,6 +2,7 @@
 #define SPR
 #include "Map.h"
 #include <map>
+#include <string>
 class Player: public MotionObject {
     private:
         int health_points;
@@ -22,14 +23,35 @@ class AI_Module {
         int path_size;
 };
 
-class Sprite {
+class Sprite: public MotionObject{
     public:
-        Object o;
-        int allegiance;
-        Sprite(Object& obj, int allegiance) : o(obj) {
-            this->allegiance = allegiance;
-        }
+        Sprite(int x, int y, int width, int height);
         Map * m;
+        std::map<std::string, int> properties; // contains information about object:
+        /*
+        eg:
+        properties = {"can_take_damage": 0, "health": 200, "collision": 1}
+        */
+        void init(); // activates when originally outside player render range but not anymore
+
+        void update(); // where all the changes will be made.
+
+
+        void update_map(); // updates the sprites information on the map, like chunk,ect
+
+        std::vector<Object> return_collisions(Object area); //returns (using the map) objects inside an area
+        
+        void create_damage(Object damage_area, int damage); //create a damaging hitbox
+
+        void take_damage(int damage);
+
+        void move(std::vector<int,int> coord);
+
+        void get_momentum(std::vector<int,int> coord);
+
+        void hide();
+
+        void destroy();
 };
 
 class AI_Sprite : public Sprite {
