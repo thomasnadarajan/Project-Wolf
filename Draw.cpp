@@ -6,6 +6,7 @@ double coord_to_screen(int x) {
 
 void draw_vertices(Object& obj) {
     // Draw vertices based on the current value of theta.
+    stbi_load
     glBegin(GL_QUADS);
     if ((int) obj.theta % 90 == 0) {
         glVertex2f(coord_to_screen(obj.hitbox.main_hitbox.x), coord_to_screen(obj.hitbox.main_hitbox.y));
