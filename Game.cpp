@@ -82,7 +82,6 @@ std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
     }
     return ans;
 
-
 }
 void Game::enqueue(void (*fun)(Sprite*), Sprite * s) {
     event_queue.push_back(std::make_tuple(fun, s));
