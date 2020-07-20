@@ -1,13 +1,15 @@
 #include <iostream>
 #include "Game.h"
-Player::Player(double x, double y, double width, double height, double move) : MotionObject(x, y, width, height, move) {
+Player::Player(double x, double y, double width, double height, double move, Map * m) : MotionObject(x, y, width, height, move, m) {
     health_points = 100;
 }
 
-Game::Game(double x, double y, double width, double height, double move) : p(x, y, width, height, move) {}
-void Chunk::add_object(double x, double y, double width, double height, int motion, double incr) {
+Game::Game(double x, double y, double width, double height, double move) : p(x, y, width, height, move, &m) {
+
+}
+void Chunk::add_object(double x, double y, double width, double height, int motion, double incr, Map * ref) {
     if (motion == 1) {
-        MotionObject o(x, y, width, height, incr);
+        MotionObject o(x, y, width, height, incr, ref);
         objects.push_back(o);
     }
     else {
@@ -27,10 +29,10 @@ void Game::draw() {
     auto pos_tup = std::make_tuple(0,0);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
     glClear(GL_COLOR_BUFFER_BIT);     
-    draw_vertices(p);
+    p.draw();
     std::vector<Object> objs = m.get_nearby_objects(pos_tup);
     for (auto obj : objs) {
-        draw_vertices(obj);
+        obj.draw();
     }
     glFlush();
 }
@@ -42,7 +44,7 @@ void Map::set_props(int width, int height) {
 void Map::add_chunk(std::vector<std::tuple<double, double, double, double, int, double>> vect, std::tuple<int, int> set) {
     Chunk c;
     for (auto elem : vect) {
-        c.add_object(std::get<0>(elem), std::get<1>(elem), std::get<2>(elem), std::get<3>(elem), std::get<4>(elem), std::get<5>(elem));
+        c.add_object(std::get<0>(elem), std::get<1>(elem), std::get<2>(elem), std::get<3>(elem), std::get<4>(elem), std::get<5>(elem), NULL);
     }
     chunks.insert(std::pair<std::tuple<int, int>, Chunk>(set, c));
 }
@@ -50,7 +52,6 @@ std::vector<Object>& Chunk::get_objects() {
     return objects;
 }
 std::tuple<int, int> Map::get_chunk(std::tuple<int, int> set) {
-    //Chunk& ref;
     int a = std::get<0>(set);
     int b = std::get<1>(set);
     if (a<0){
@@ -65,9 +66,10 @@ std::tuple<int, int> Map::get_chunk(std::tuple<int, int> set) {
     else {
         b /= 100;
     }
-    
     return std::make_tuple(a, b);
 }
+
+
 
 std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
     std::tuple<int, int> a = get_chunk(position);
@@ -83,20 +85,44 @@ std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
     return ans;
 
 }
-void Game::enqueue(void (*fun)(Sprite*), Sprite * s) {
-    event_queue.push_back(std::make_tuple(fun, s));
+
+void Game::update() {
+    p.update();
+    auto pos_tup =  std::make_tuple(p.hitbox.main_hitbox.x, p.hitbox.main_hitbox.y);
+    auto objs = m.get_nearby_objects(pos_tup);
+    for (auto obj : objs) {
+        obj.update();
+    }
 }
+
+
 void Player::move(std::vector<Object> objs, int key) {
-    if (key == GLUT_KEY_LEFT) {
-        MotionObject::move(-1, 0, objs);
+    if (!momentum) {
+        if (key == GLUT_KEY_LEFT) {
+            x_vel = -2;
+        }
+        if (key ==GLUT_KEY_RIGHT) {
+            x_vel = 2;
+        }
+        if (key == GLUT_KEY_UP) {
+            y_vel = 2;
+        }
+        if (key == GLUT_KEY_DOWN) {
+            y_vel = -2;
+        }
     }
-    else if (key ==GLUT_KEY_RIGHT) {
-        MotionObject::move(1, 0,objs);
-    }
-    else if (key == GLUT_KEY_UP) {
-        MotionObject::move(0, 1,objs);
-    }
-    else if (key == GLUT_KEY_DOWN) {
-        MotionObject::move(0, -1,objs);
+    else {
+        if (key == GLUT_KEY_LEFT) {
+            x_vel += -2;
+        }
+        if (key ==GLUT_KEY_RIGHT) {
+            x_vel += 2;
+        }
+        if (key == GLUT_KEY_UP) {
+            y_vel += 2;
+        }
+        if (key == GLUT_KEY_DOWN) {
+            y_vel += -2;
+        }
     }
 }

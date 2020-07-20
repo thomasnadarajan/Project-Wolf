@@ -17,7 +17,6 @@ bool Hitbox::intersects(Hitbox box){
     return !(x> box.x+box.width || box.x > width+x || y > box.height+box.y || box.y > height+y);
 }
 
-
 CollisionObject::CollisionObject(std::vector<Hitbox> hbs) {
         Hitbox temp_h = hbs[0];
         int x = temp_h.x;

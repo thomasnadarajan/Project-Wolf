@@ -1,9 +1,16 @@
-#include "Draw.h"
-//#include "EventFunctions.h"
 #include <vector>
 #include <map>
 #include <tuple>
+#include "Object.h"
 
+class Player: public MotionObject {
+    private:
+        int health_points;
+    public:
+        Player(double x, double y, double width, double height, double move, Map * m);
+        void move(std::vector<Object> objs, int key);
+
+};
 class Game {
     public:
         Map m;
@@ -11,14 +18,14 @@ class Game {
         double move;
         int game_over;
         Player p;
-        std::vector<std::tuple<void (*)(Sprite*), Sprite *>> event_queue;
+        Chunk * current_chunk;
         Game(double x, double y, double width, double height, double move);
         void init();
         void cleanup();
         void handle_events();
         void draw();
         void update();
-        void enqueue(void (*fun)(Sprite*), Sprite * s);
+        
 };
 
 

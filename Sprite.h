@@ -3,14 +3,7 @@
 #include "Map.h"
 #include <map>
 #include <string>
-class Player: public MotionObject {
-    private:
-        int health_points;
-    public:
-        Player(double x, double y, double width, double height, double move);
-        void move(std::vector<Object> objs, int key);
 
-};
 
 
 class AI_Module {
