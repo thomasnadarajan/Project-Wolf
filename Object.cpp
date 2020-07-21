@@ -5,7 +5,7 @@ Object::Object(double x, double y, double width, double height): hitbox(Collisio
 
 bool Object::check_collisions(std::vector<Object> objects) {
     for (auto obj: objects){
-        if (hitbox.main_hitbox.intersects(hitbox.main_hitbox)){
+        if (hitbox.main_hitbox.intersects(obj.hitbox.main_hitbox) && (&hitbox != &obj.hitbox)){
             return true;
         }
     }
