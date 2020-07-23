@@ -50,11 +50,7 @@ double coord_to_screen(int x) {
     return x/100.0;
 }
 void Object::draw() {
-<<<<<<< HEAD
-    printf("Right Most: %d\n", hitbox.main_hitbox.x + hitbox.main_hitbox.width);
-=======
     glBegin(GL_QUADS);
->>>>>>> a3a24044defdf0659a049d1dcaee90a66e049dde
     glVertex2f(coord_to_screen(hitbox.main_hitbox.x), coord_to_screen(hitbox.main_hitbox.y));
     glVertex2f(coord_to_screen(hitbox.main_hitbox.x + hitbox.main_hitbox.width), coord_to_screen(hitbox.main_hitbox.y ));
     glVertex2f(coord_to_screen(hitbox.main_hitbox.x + hitbox.main_hitbox.width), coord_to_screen(hitbox.main_hitbox.y + hitbox.main_hitbox.height));
