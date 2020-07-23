@@ -5,7 +5,7 @@ Object::Object(double x, double y, double width, double height): hitbox(Collisio
 
 bool Object::check_collisions(std::vector<Object> objects) {
     for (auto obj: objects){
-        if (hitbox.main_hitbox.intersects(hitbox.main_hitbox)){
+        if (hitbox.main_hitbox.intersects(obj.hitbox.main_hitbox) && (&hitbox != &obj.hitbox)){
             return true;
         }
     }
@@ -50,11 +50,17 @@ double coord_to_screen(int x) {
     return x/100.0;
 }
 void Object::draw() {
+<<<<<<< HEAD
     printf("Right Most: %d\n", hitbox.main_hitbox.x + hitbox.main_hitbox.width);
+=======
+    glBegin(GL_QUADS);
+>>>>>>> a3a24044defdf0659a049d1dcaee90a66e049dde
     glVertex2f(coord_to_screen(hitbox.main_hitbox.x), coord_to_screen(hitbox.main_hitbox.y));
     glVertex2f(coord_to_screen(hitbox.main_hitbox.x + hitbox.main_hitbox.width), coord_to_screen(hitbox.main_hitbox.y ));
     glVertex2f(coord_to_screen(hitbox.main_hitbox.x + hitbox.main_hitbox.width), coord_to_screen(hitbox.main_hitbox.y + hitbox.main_hitbox.height));
     glVertex2f(coord_to_screen(hitbox.main_hitbox.x), coord_to_screen(hitbox.main_hitbox.y + hitbox.main_hitbox.height));
+    glEnd();
+    glFlush();
 }
 
 void MotionObject::update() {
