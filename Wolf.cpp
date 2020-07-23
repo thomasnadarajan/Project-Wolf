@@ -52,10 +52,10 @@ int main(int argc, char ** argv) {
     glutCreateWindow("Project Wolf"); 
     glutInitWindowSize(800, 800);  
     glutInitWindowPosition(80, 80); 
-    glutDisplayFunc(mainLoop);
     glutSpecialFunc(keyboard);
     glutSpecialUpFunc(keyboard_released);
     glutPassiveMotionFunc(mouseFunc);
+    glutDisplayFunc(mainLoop);
     glutIdleFunc(game_loop);
     glutMainLoop();
     
