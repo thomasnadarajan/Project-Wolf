@@ -35,7 +35,6 @@ void MotionObject::force_move(int dx,int dy){
 void MotionObject::move(int dx,int dy, std::vector<Object> objects){
     if (check_move(dx + x_vel ,dy + y_vel,objects)){
         force_move(dx+x_vel,dy+y_vel);
-        
         if (momentum){
             x_vel+=dx;
             y_vel+=dy;

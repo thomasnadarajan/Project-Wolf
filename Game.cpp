@@ -1,10 +1,10 @@
 #include <iostream>
 #include "Game.h"
-Player::Player(double x, double y, double width, double height, double move, Map * m) : MotionObject(x, y, width, height, move, m) {
+Player::Player(double x, double y, double width, double height, Map * m) : MotionObject(x, y, width, height, m) {
     health_points = 100;
 }
 
-Game::Game(double x, double y, double width, double height, double move) : p(x, y, width, height, move, &m) {
+Game::Game(double x, double y, double width, double height) : p(x, y, width, height, &m) {
 
 }
 void Chunk::add_object(double x, double y, double width, double height, int motion, double incr, Map * ref) {
@@ -23,7 +23,7 @@ void Game::init() {
     auto pos_tup = std::make_tuple(0,0);
     std::vector<std::tuple<double, double, double, double, int, double>> vect;
     vect.push_back(obj_tup);
-    m.add_chunk(vect, pos_tup);
+    //m.add_chunk(vect, pos_tup);
 }
 void Game::draw() {
     auto pos_tup = std::make_tuple(0,0);

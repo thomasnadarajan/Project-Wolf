@@ -7,7 +7,7 @@ class Player: public MotionObject {
     private:
         int health_points;
     public:
-        Player(double x, double y, double width, double height, double move, Map * m);
+        Player(double x, double y, double width, double height, Map * m);
         void move(std::vector<Object> objs, int key);
 
 };
@@ -19,7 +19,7 @@ class Game {
         int game_over;
         Player p;
         Chunk * current_chunk;
-        Game(double x, double y, double width, double height, double move);
+        Game(double x, double y, double width, double height);
         void init();
         void cleanup();
         void handle_events();

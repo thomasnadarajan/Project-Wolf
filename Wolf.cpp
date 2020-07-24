@@ -5,10 +5,10 @@
 #include <pthread.h>
 #include <map>
 #define PI 3.14
-Game g(0, 0, 10, 10, 0.1);
+Game g(0, 0, 10, 10);
 bool keyState[246];
 void game_loop() {
-    g.update();
+    //g.update();
 }
 
 void keyboard(int key, int, int) {
@@ -16,11 +16,13 @@ void keyboard(int key, int, int) {
     auto tup = g.m.get_chunk(std::make_tuple(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y));
     std::vector<Object> objs = g.m.chunks[tup].get_objects();
     g.p.move(objs, key);
+    g.update();
     glutPostRedisplay();
 }
 void keyboard_released(int key, int, int) {
+    printf("Key Released: %d\n", key);
     keyState[key] = false;
-    if (!g.p.momentum) {
+    if (g.p.momentum == false) {
         g.p.x_vel = 0;
         g.p.y_vel = 0;
     }
@@ -49,8 +51,10 @@ void mouseFunc(int x, int y) {
 int main(int argc, char ** argv) {
     glutInit(&argc, argv);
     g.init();
+    //printf("Momentum: %d\n", g.p.momentum);
+    glutSetKeyRepeat(1);
     glutCreateWindow("Project Wolf"); 
-    glutInitWindowSize(800, 800);  
+    glutInitWindowSize(1000, 1000);  
     glutInitWindowPosition(80, 80); 
     glutSpecialFunc(keyboard);
     glutSpecialUpFunc(keyboard_released);
