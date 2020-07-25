@@ -7,6 +7,7 @@ class Player: public MotionObject {
     private:
         int health_points;
     public:
+        bool keyState[246];
         Player(double x, double y, double width, double height, Map * m);
         void move(std::vector<Object> objs, int key);
 
@@ -25,7 +26,6 @@ class Game {
         void handle_events();
         void draw();
         void update();
-        
 };
 
 

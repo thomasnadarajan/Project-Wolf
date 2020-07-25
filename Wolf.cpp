@@ -6,26 +6,37 @@
 #include <map>
 #define PI 3.14
 Game g(0, 0, 10, 10);
-bool keyState[246];
+
+void timer( int extra )
+{
+    g.update();
+    glutPostRedisplay();
+    glutTimerFunc( 16, timer, 0 );
+}
+
 void game_loop() {
-    //g.update();
+    
 }
 
 void keyboard(int key, int, int) {
-    keyState[key] = true;
+    g.p.keyState[key] = true;
     auto tup = g.m.get_chunk(std::make_tuple(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y));
     std::vector<Object> objs = g.m.chunks[tup].get_objects();
     g.p.move(objs, key);
     g.update();
-    glutPostRedisplay();
 }
 void keyboard_released(int key, int, int) {
-    printf("Key Released: %d\n", key);
-    keyState[key] = false;
+    printf("released: %d\n", g.p.hitbox.main_hitbox.y);
+    g.p.keyState[key] = false;
     if (g.p.momentum == false) {
-        g.p.x_vel = 0;
-        g.p.y_vel = 0;
+        if (key == GLUT_KEY_UP || key == GLUT_KEY_DOWN) {
+            g.p.y_vel = 0;
+        }
+        else {
+            g.p.x_vel = 0;
+        }
     }
+    printf("released2: %d\n", g.p.hitbox.main_hitbox.y);
 }
 void mainLoop() {
     g.draw();
@@ -52,7 +63,7 @@ int main(int argc, char ** argv) {
     glutInit(&argc, argv);
     g.init();
     //printf("Momentum: %d\n", g.p.momentum);
-    glutSetKeyRepeat(1);
+    glutSetKeyRepeat(0);
     glutCreateWindow("Project Wolf"); 
     glutInitWindowSize(1000, 1000);  
     glutInitWindowPosition(80, 80); 
@@ -60,8 +71,8 @@ int main(int argc, char ** argv) {
     glutSpecialUpFunc(keyboard_released);
     glutPassiveMotionFunc(mouseFunc);
     glutDisplayFunc(mainLoop);
+    glutTimerFunc( 0, timer, 0 );
     glutIdleFunc(game_loop);
     glutMainLoop();
-    
    return 0;
 }

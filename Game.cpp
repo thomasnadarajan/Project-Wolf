@@ -23,7 +23,7 @@ void Game::init() {
     auto pos_tup = std::make_tuple(0,0);
     std::vector<std::tuple<double, double, double, double, int, double>> vect;
     vect.push_back(obj_tup);
-    //m.add_chunk(vect, pos_tup);
+    m.add_chunk(vect, pos_tup);
 }
 void Game::draw() {
     auto pos_tup = std::make_tuple(0,0);
@@ -85,10 +85,20 @@ std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
     return ans;
 
 }
-
+/*
+void Player::update() {
+    auto tup = map_ref->get_chunk(std::make_tuple(hitbox.main_hitbox.x, hitbox.main_hitbox.y));
+    std::vector<Object> objs = map_ref->chunks[tup].get_objects();
+    for (int i = 0; i < 246; i++) {
+        if (keyState[i]) {
+            move(objs, i);
+        }
+    }
+}
+*/
 void Game::update() {
     p.update();
-    auto pos_tup =  std::make_tuple(p.hitbox.main_hitbox.x, p.hitbox.main_hitbox.y);
+    auto pos_tup = std::make_tuple(p.hitbox.main_hitbox.x, p.hitbox.main_hitbox.y);
     auto objs = m.get_nearby_objects(pos_tup);
     for (auto obj : objs) {
         obj.update();
@@ -98,17 +108,17 @@ void Game::update() {
 
 void Player::move(std::vector<Object> objs, int key) {
     if (!momentum) {
-        if (key == GLUT_KEY_LEFT) {
-            x_vel = -2;
+        if (key == GLUT_KEY_LEFT && x_vel >=0) {
+            x_vel += -2;
         }
-        if (key ==GLUT_KEY_RIGHT) {
-            x_vel = 2;
+        if (key ==GLUT_KEY_RIGHT && x_vel <=0) {
+            x_vel += 2;
         }
-        if (key == GLUT_KEY_UP) {
-            y_vel = 2;
+        if (key == GLUT_KEY_UP && y_vel <=0) {
+            y_vel += 2;
         }
-        if (key == GLUT_KEY_DOWN) {
-            y_vel = -2;
+        if (key == GLUT_KEY_DOWN && y_vel >= 0) {
+            y_vel += -2;
         }
     }
     else {
