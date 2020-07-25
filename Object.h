@@ -2,6 +2,7 @@
 #include "GL/glut.h"
 #include <tuple>
 #include <map>
+double coord_to_screen(int x);
 class Map;
 class Object {
     public:

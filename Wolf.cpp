@@ -43,20 +43,17 @@ void mainLoop() {
     //glutPostRedisplay();
 }
 void mouseFunc(int x, int y) {
-    /*
     int direct_vect[2];
     direct_vect[0] = x - g.p.hitbox.main_hitbox.x;
     direct_vect[1] = y - g.p.hitbox.main_hitbox.y;
-    glTranslatef(-g.p.hitbox.main_hitbox.x, -g.p.hitbox.main_hitbox.y, 0);
     
     double rot = atan2(direct_vect[0], direct_vect[1]);
     if (rot < 0) {
         rot += (2 * PI);
     }
-    glRotatef(rot, 0, 0, 1);
-    glTranslatef(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y, 0);
-    glutPostRedisplay();
-    */
+    g.p.theta = rot;
+    g.update();
+    printf("%f\n", g.p.theta);    
 }
 
 int main(int argc, char ** argv) {

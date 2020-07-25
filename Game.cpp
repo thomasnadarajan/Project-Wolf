@@ -25,6 +25,19 @@ void Game::init() {
     vect.push_back(obj_tup);
     m.add_chunk(vect, pos_tup);
 }
+void Player::draw() {
+    glPushMatrix();
+    glRotatef(theta, 0, 1, 0);
+    glPopMatrix();
+    glBegin(GL_QUADS);
+    glVertex2f(coord_to_screen(hitbox.main_hitbox.x), coord_to_screen(hitbox.main_hitbox.y));
+    glVertex2f(coord_to_screen(hitbox.main_hitbox.x + hitbox.main_hitbox.width), coord_to_screen(hitbox.main_hitbox.y ));
+    glVertex2f(coord_to_screen(hitbox.main_hitbox.x + hitbox.main_hitbox.width), coord_to_screen(hitbox.main_hitbox.y + hitbox.main_hitbox.height));
+    glVertex2f(coord_to_screen(hitbox.main_hitbox.x), coord_to_screen(hitbox.main_hitbox.y + hitbox.main_hitbox.height));
+    glEnd();
+    glFlush();
+    
+}
 void Game::draw() {
     auto pos_tup = std::make_tuple(0,0);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
@@ -85,17 +98,7 @@ std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
     return ans;
 
 }
-/*
-void Player::update() {
-    auto tup = map_ref->get_chunk(std::make_tuple(hitbox.main_hitbox.x, hitbox.main_hitbox.y));
-    std::vector<Object> objs = map_ref->chunks[tup].get_objects();
-    for (int i = 0; i < 246; i++) {
-        if (keyState[i]) {
-            move(objs, i);
-        }
-    }
-}
-*/
+
 void Game::update() {
     p.update();
     auto pos_tup = std::make_tuple(p.hitbox.main_hitbox.x, p.hitbox.main_hitbox.y);
