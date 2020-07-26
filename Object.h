@@ -18,12 +18,17 @@ class Object {
             return tup;
         }
 };
+class Tile
+{ 
+    std::vector<Tile*> edges;
+};
 class Chunk {
     private:
         std::vector<Object> objects;
     public:
         void add_object(double x, double y, double width, double height, int motion, double incr, Map * ref);
         std::vector<Object>& get_objects();
+        std::vector
 
 };
 class Map {
