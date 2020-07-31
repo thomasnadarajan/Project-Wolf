@@ -23,7 +23,7 @@ void Game::init() {
     auto pos_tup = std::make_tuple(0,0);
     std::vector<std::tuple<double, double, double, double, int, double>> vect;
     vect.push_back(obj_tup);
-    m.add_chunk(vect, pos_tup);
+    //m.add_chunk(vect, pos_tup);
 }
 void Player::draw() {
     glPushMatrix();

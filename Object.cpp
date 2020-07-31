@@ -46,7 +46,7 @@ void MotionObject::move(int dx,int dy, std::vector<Object> objects){
 
 }
 double coord_to_screen(int x) {
-    return x/100.0;
+    return x/1000.0;
 }
 void Object::draw() {
     glBegin(GL_QUADS);

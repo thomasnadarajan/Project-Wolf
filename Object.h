@@ -20,7 +20,10 @@ class Object {
 };
 class Tile
 { 
-    std::vector<Tile*> edges;
+    public:
+        std::vector<Tile*> edges;
+        int x;
+        int y;
 };
 class Chunk {
     private:
@@ -28,7 +31,7 @@ class Chunk {
     public:
         void add_object(double x, double y, double width, double height, int motion, double incr, Map * ref);
         std::vector<Object>& get_objects();
-        std::vector
+        std::vector<Tile> tiles;
 
 };
 class Map {
@@ -40,6 +43,7 @@ class Map {
         std::tuple<int, int> get_chunk(std::tuple<int, int> position);
         std::vector<Object> get_nearby_objects(std::tuple<int, int> position);
         std::map<std::tuple<int, int>, Chunk> chunks;
+        Tile* player_pos;
 };
 
 class MotionObject: public Object {
