@@ -1,7 +1,6 @@
 #include "Game.h"
 #include <cstdio>
 #include <math.h>
-#include <png.h>
 #include <pthread.h>
 #include <map>
 #define PI 3.14
@@ -62,7 +61,7 @@ int main(int argc, char ** argv) {
     //printf("Momentum: %d\n", g.p.momentum);
     glutSetKeyRepeat(0);
     glutCreateWindow("Project Wolf"); 
-    glutInitWindowSize(1000, 1000);  
+    glutInitWindowSize(1600, 1600);  
     glutInitWindowPosition(80, 80); 
     glutSpecialFunc(keyboard);
     glutSpecialUpFunc(keyboard_released);

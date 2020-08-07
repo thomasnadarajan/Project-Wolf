@@ -31,9 +31,32 @@ std::map<Tile*, Tile*> AIControlledObject::recalculate_distance (Tile * t) {
 
 void AIControlledObject::update() {
     auto returned = recalculate_distance(current_tile);
-    Tile * current_ref = map_ref->player_pos;
-    while (returned[current_ref] != current_tile) {
-        current_ref = returned[current_ref];
+    Tile * next_tile = map_ref->player_pos;
+    while (returned[next_tile] != current_tile) {
+        next_tile = returned[next_tile];
     }
-    
+    if (hitbox.main_hitbox.x < returned[next_tile]->x + 25 && hitbox.main_hitbox.y < returned[next_tile]->y + 25) {
+        current_tile = returned[next_tile];
+        AIControlledObject::update();
+    }
+    else {
+        if (next_tile->x < current_tile->x) {
+            x_vel = -2;
+        }
+        else if (next_tile->x > current_tile->x) {
+            x_vel = 2;
+        }
+        else {
+            x_vel = 0;
+        }
+        if (next_tile->y < current_tile->y) {
+            y_vel = -2;
+        }
+        else if (next_tile->y > current_tile->y) {
+            y_vel = 2;
+        }
+        else {
+            y_vel = 0;
+        }
+    }
 }
