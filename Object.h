@@ -1,5 +1,9 @@
 #include "CollisionObject.h"
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
 #include "GL/glut.h"
+#endif
 #include <tuple>
 #include <map>
 double coord_to_screen(int x);
@@ -24,15 +28,19 @@ class Tile
         std::vector<Tile*> edges;
         int x;
         int y;
+        Tile::Tile(int x, int y);
 };
 class Chunk {
     private:
         std::vector<Object> objects;
     public:
+        Chunk::Chunk();
         void add_object(double x, double y, double width, double height, int motion, double incr, Map * ref);
         std::vector<Object>& get_objects();
         std::vector<Tile> tiles;
+        Tile * get_tile(std::tuple<int, int> coords) {
 
+        }
 };
 class Map {
     public:
@@ -43,7 +51,8 @@ class Map {
         std::tuple<int, int> get_chunk(std::tuple<int, int> position);
         std::vector<Object> get_nearby_objects(std::tuple<int, int> position);
         std::map<std::tuple<int, int>, Chunk> chunks;
-        Tile* player_pos;
+        Chunk * current_chunk;
+        Tile * player_pos;        
 };
 
 class MotionObject: public Object {

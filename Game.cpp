@@ -17,13 +17,16 @@ void Chunk::add_object(double x, double y, double width, double height, int moti
         objects.push_back(o);
     }
 }
+
 void Game::init() {
     m.set_props(100, 100);
     auto obj_tup = std::make_tuple(30, 30, 10, 20, 0, -1);
     auto pos_tup = std::make_tuple(0,0);
     std::vector<std::tuple<double, double, double, double, int, double>> vect;
     vect.push_back(obj_tup);
-    //m.add_chunk(vect, pos_tup);
+    m.add_chunk(vect, pos_tup);
+    m.current_chunk = &m.chunks[pos_tup];
+    m.player_pos = m.current_chunk->get_tile(pos_tup);
 }
 void Player::draw() {
     glPushMatrix();
