@@ -13,15 +13,11 @@ void timer( int extra )
     glutTimerFunc( 16, timer, 0 );
 }
 
-void game_loop() {
-    
-}
 
 void keyboard(int key, int, int) {
     g.p.keyState[key] = true;
     auto tup = g.m.get_chunk(std::make_tuple(g.p.hitbox.main_hitbox.x, g.p.hitbox.main_hitbox.y));
-    std::vector<Object> objs = g.m.chunks[tup].get_objects();
-    g.p.move(objs, key);
+    g.p.move(key);
     g.update();
 }
 void keyboard_released(int key, int, int) {
@@ -58,17 +54,15 @@ void mouseFunc(int x, int y) {
 int main(int argc, char ** argv) {
     glutInit(&argc, argv);
     g.init();
-    //printf("Momentum: %d\n", g.p.momentum);
     glutSetKeyRepeat(0);
     glutCreateWindow("Project Wolf"); 
-    glutInitWindowSize(1600, 1600);  
-    glutInitWindowPosition(80, 80); 
+    glutInitWindowSize(2000, 2000);  
+    glutInitWindowPosition(0, 0); 
     glutSpecialFunc(keyboard);
     glutSpecialUpFunc(keyboard_released);
     glutPassiveMotionFunc(mouseFunc);
     glutDisplayFunc(mainLoop);
     glutTimerFunc( 0, timer, 0 );
-    glutIdleFunc(game_loop);
     glutMainLoop();
    return 0;
 }

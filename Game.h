@@ -12,7 +12,7 @@ class Player: public MotionObject {
         double theta;
         bool keyState[246];
         Player(double x, double y, double width, double height, Map * m);
-        void move(std::vector<Object> objs, int key);
+        void move(int key);
         void draw();
 
 };

@@ -11,11 +11,16 @@ Game::Game(double x, double y, double width, double height) : p(x, y, width, hei
 void Chunk::add_object(double x, double y, double width, double height, int motion, double incr, Map * ref) {
     if (motion == 1) {
         MotionObject o(x, y, width, height, incr, ref);
-        objects.push_back(o);
+        objects.push_back(&o);
     }
     else {
         Object o(x, y, width, height);
-        objects.push_back(o);
+        objects.push_back(&o);
+    }
+    for (auto obj: this->objects) {
+        if (obj->terrain == true) {
+            set_tile(obj->hitbox.main_hitbox.x, obj->hitbox.main_hitbox.y, true);
+        }
     }
 }
 
@@ -28,10 +33,10 @@ void Game::init() {
     // Controls whether we spawn objects.
     //vect.push_back(obj_tup);
     m.add_chunk(vect, pos_tup);
-    m.current_chunk = &m.chunks[pos_tup];
-    m.player_pos = m.current_chunk->get_tile(pos_tup);
-    AIControlledObject ai(40, 40, 30, 30, &m);
-    m.current_chunk->objects.push_back(ai);
+    m.current_chunk = &(m.chunks[pos_tup]);
+    AIControlledObject ai(30, 80, 10, 20, &m);
+    m.current_chunk->objects.push_back(&ai);
+    printf("THe current x is: %d\n", m.current_chunk->objects[0]->hitbox.main_hitbox.y);
 }
 void Player::draw() {
     glPushMatrix();
@@ -51,9 +56,9 @@ void Game::draw() {
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
     glClear(GL_COLOR_BUFFER_BIT);
     p.draw();
-    std::vector<Object> objs = m.get_nearby_objects(pos_tup);
+    std::vector<Object*> objs = m.get_nearby_objects(pos_tup);
     for (auto obj : objs) {
-        obj.draw();
+        obj->draw();
     }
     glFlush();
 }
@@ -69,7 +74,7 @@ void Map::add_chunk(std::vector<std::tuple<double, double, double, double, int, 
     }
     chunks.insert(std::pair<std::tuple<int, int>, Chunk>(set, c));
 }
-std::vector<Object>& Chunk::get_objects() {
+std::vector<Object *>& Chunk::get_objects() {
     return objects;
 }
 std::tuple<int, int> Map::get_chunk(std::tuple<int, int> set) {
@@ -90,9 +95,10 @@ std::tuple<int, int> Map::get_chunk(std::tuple<int, int> set) {
     return std::make_tuple(a, b);
 }
 
-std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
+std::vector<Object *> Map::get_nearby_objects(std::tuple<int, int> position){
+    
     std::tuple<int, int> a = get_chunk(position);
-    std::vector<Object> ans = {};
+    std::vector<Object *> ans = {};
     for (int dx = -1; dx <= 1; dx++){
         for (int dy = -1; dy <= 1; dy++){
             std::tuple<int, int> x = std::make_tuple(std::get<0>(a)+dx, std::get<0>(a)+dy);
@@ -107,15 +113,21 @@ std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
 
 void Game::update() {
     p.update();
-    auto pos_tup = std::make_tuple(p.hitbox.main_hitbox.x, p.hitbox.main_hitbox.y);
-    auto objs = m.get_nearby_objects(pos_tup);
-    for (auto obj : objs) {
-        obj.update();
+    //auto pos_tup = std::make_tuple(p.hitbox.main_hitbox.x, p.hitbox.main_hitbox.y);
+    //auto objs = m.get_nearby_objects(pos_tup);
+    //printf("%ld", objs.size());
+    if (m.current_chunk == NULL) {
+        printf("HOORAY\n");
     }
+    printf("%d\n", m.current_chunk->objects[0]->hitbox.main_hitbox.height);
+    /*
+    for (auto obj : objs) {
+        obj->update();
+    }*/
 }
 
 
-void Player::move(std::vector<Object> objs, int key) {
+void Player::move(int key) {
     if (!momentum) {
         if (key == GLUT_KEY_LEFT && x_vel >=0) {
             x_vel += -2;
