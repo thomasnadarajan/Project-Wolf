@@ -61,7 +61,7 @@ int main(int argc, char ** argv) {
     //printf("Momentum: %d\n", g.p.momentum);
     glutSetKeyRepeat(0);
     glutCreateWindow("Project Wolf"); 
-    glutInitWindowSize(800, 800);  
+    glutInitWindowSize(1600, 1600);  
     glutInitWindowPosition(80, 80); 
     glutSpecialFunc(keyboard);
     glutSpecialUpFunc(keyboard_released);

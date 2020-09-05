@@ -1,9 +1,12 @@
+#ifndef OBJ
+#define OBJ
 #include "Object.h"
+#endif
 #include <map>
 #include <queue>
 class AIControlledObject : public MotionObject {
     public:
-        Tile * current_tile;
+        AIControlledObject(double x, double y, double width, double height, Map * m): MotionObject(x, y, width, height,m) {}
         std::map<Tile*, Tile*> recalculate_distance(Tile* t);
-        void update();
+        virtual void update();
 };

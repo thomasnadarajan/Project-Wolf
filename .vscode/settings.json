@@ -62,6 +62,17 @@
         "string_view": "cpp",
         "fstream": "cpp",
         "sstream": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "bitset": "cpp",
+        "chrono": "cpp",
+        "compare": "cpp",
+        "complex": "cpp",
+        "condition_variable": "cpp",
+        "ctime": "cpp",
+        "ratio": "cpp",
+        "mutex": "cpp",
+        "ranges": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     }
 }

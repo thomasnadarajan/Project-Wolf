@@ -1,7 +1,5 @@
 #include "Object.h"
-Object::Object(double x, double y, double width, double height): hitbox(CollisionObject({Hitbox(x,y,width,height)})){
-    theta = 0;
-}
+Object::Object(double x, double y, double width, double height): hitbox(CollisionObject({Hitbox(x,y,width,height)})) {}
 Tile::Tile(int x, int y) {
     this->x = x;
     this->y = y;
@@ -101,7 +99,7 @@ void MotionObject::move(int dx,int dy, std::vector<Object> objects){
 
 }
 double coord_to_screen(int x) {
-    return x/1000.0;
+    return x/100.0;
 }
 void Object::draw() {
     glBegin(GL_QUADS);
@@ -121,6 +119,6 @@ void MotionObject::update() {
 }
 
 void Object::update() {
-
+    printf("this is called42\n");
 }
 

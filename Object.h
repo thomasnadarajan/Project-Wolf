@@ -8,13 +8,15 @@
 #include <map>
 double coord_to_screen(int x);
 class Map;
+class Tile;
 class Object {
     public:
+        Tile * current_tile;
         double theta;
         CollisionObject hitbox;
         Object(double x, double y, double width, double height);
         bool check_collisions(std::vector<Object> objects);
-        void update();
+        virtual void update();
         bool check_object_collision(Object& o);
         void draw();
         std::tuple<int, int> return_coords() {
@@ -28,18 +30,22 @@ class Tile
         std::vector<Tile*> edges;
         int x;
         int y;
-        Tile::Tile(int x, int y);
+        Tile(int x, int y);
 };
 class Chunk {
-    private:
-        std::vector<Object> objects;
     public:
-        Chunk::Chunk();
+        Chunk();
+        std::vector<Object> objects;
         void add_object(double x, double y, double width, double height, int motion, double incr, Map * ref);
         std::vector<Object>& get_objects();
         std::vector<Tile> tiles;
         Tile * get_tile(std::tuple<int, int> coords) {
-
+            for (int i =0; i < tiles.size(); i++) {
+                if (tiles[i].x == std::get<0>(coords) && tiles[i].y == std::get<1>(coords)) {
+                    return &tiles[i];
+                }
+            }
+            return NULL;
         }
 };
 class Map {
@@ -50,6 +56,7 @@ class Map {
         void set_props(int width, int height);
         std::tuple<int, int> get_chunk(std::tuple<int, int> position);
         std::vector<Object> get_nearby_objects(std::tuple<int, int> position);
+        
         std::map<std::tuple<int, int>, Chunk> chunks;
         Chunk * current_chunk;
         Tile * player_pos;        

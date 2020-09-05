@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Game.h"
+#include "AIControlledObject.h"
 Player::Player(double x, double y, double width, double height, Map * m) : MotionObject(x, y, width, height, m) {
     health_points = 100;
 }
@@ -19,14 +20,18 @@ void Chunk::add_object(double x, double y, double width, double height, int moti
 }
 
 void Game::init() {
+    //exit(1);
     m.set_props(100, 100);
     auto obj_tup = std::make_tuple(30, 30, 10, 20, 0, -1);
     auto pos_tup = std::make_tuple(0,0);
     std::vector<std::tuple<double, double, double, double, int, double>> vect;
-    vect.push_back(obj_tup);
+    // Controls whether we spawn objects.
+    //vect.push_back(obj_tup);
     m.add_chunk(vect, pos_tup);
     m.current_chunk = &m.chunks[pos_tup];
     m.player_pos = m.current_chunk->get_tile(pos_tup);
+    AIControlledObject ai(40, 40, 30, 30, &m);
+    m.current_chunk->objects.push_back(ai);
 }
 void Player::draw() {
     glPushMatrix();
@@ -44,7 +49,7 @@ void Player::draw() {
 void Game::draw() {
     auto pos_tup = std::make_tuple(0,0);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f); 
-    glClear(GL_COLOR_BUFFER_BIT);     
+    glClear(GL_COLOR_BUFFER_BIT);
     p.draw();
     std::vector<Object> objs = m.get_nearby_objects(pos_tup);
     for (auto obj : objs) {
@@ -84,8 +89,6 @@ std::tuple<int, int> Map::get_chunk(std::tuple<int, int> set) {
     }
     return std::make_tuple(a, b);
 }
-
-
 
 std::vector<Object> Map::get_nearby_objects(std::tuple<int, int> position){
     std::tuple<int, int> a = get_chunk(position);

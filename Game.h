@@ -1,3 +1,5 @@
+#ifndef OBJ
+#define OBJ
 #include <vector>
 #include <map>
 #include <tuple>
@@ -29,6 +31,4 @@ class Game {
         void draw();
         void update();
 };
-
-
-
+#endif
