@@ -8,6 +8,6 @@ class AIControlledObject : public MotionObject {
     public:
 
         AIControlledObject(double x, double y, double width, double height, Map * m): MotionObject(x, y, width, height,m) {
-            this->x_vel = 2;
+            this->x_vel = -1;
         }
 };

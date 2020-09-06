@@ -34,9 +34,10 @@ void Game::init() {
     //vect.push_back(obj_tup);
     m.add_chunk(vect, pos_tup);
     m.current_chunk = &(m.chunks[pos_tup]);
-    AIControlledObject ai(30, 80, 10, 20, &m);
-    m.current_chunk->objects.push_back(&ai);
-    printf("THe current x is: %d\n", m.current_chunk->objects[0]->hitbox.main_hitbox.y);
+    AIControlledObject * ai =  new AIControlledObject(90, 0, 10, 20, &m);
+    m.current_chunk->objects.push_back(ai);
+    //printf("THe current x is: %d\n", m.current_chunk->objects[0]->hitbox.main_hitbox.x);
+    //printf("Address set to : %p", (void  *) m.current_chunk->objects[0]);
 }
 void Player::draw() {
     glPushMatrix();
@@ -115,15 +116,12 @@ void Game::update() {
     p.update();
     //auto pos_tup = std::make_tuple(p.hitbox.main_hitbox.x, p.hitbox.main_hitbox.y);
     //auto objs = m.get_nearby_objects(pos_tup);
-    //printf("%ld", objs.size());
-    if (m.current_chunk == NULL) {
-        printf("HOORAY\n");
-    }
-    printf("%d\n", m.current_chunk->objects[0]->hitbox.main_hitbox.height);
-    /*
+    auto objs = m.current_chunk->objects;
+    //printf("%d\n", m.current_chunk->objects[0]->hitbox.main_hitbox.x);
     for (auto obj : objs) {
+
         obj->update();
-    }*/
+    }
 }
 
 

@@ -26,7 +26,12 @@ Chunk::Chunk(std::vector<Object> all_objects_for_chunk) {
 }*/
 bool Object::check_collisions(std::vector<Object> * objects) {
     for (auto obj: *objects){
-        if (hitbox.main_hitbox.intersects(obj.hitbox.main_hitbox) && (&hitbox != &obj.hitbox)){
+        if (hitbox.main_hitbox.intersects(obj.hitbox.main_hitbox) && 
+        (hitbox.main_hitbox.x != obj.hitbox.main_hitbox.x 
+        && hitbox.main_hitbox.y != obj.hitbox.main_hitbox.y 
+            && hitbox.main_hitbox.height != obj.hitbox.main_hitbox.height 
+                && hitbox.main_hitbox.width != obj.hitbox.main_hitbox.width)){
+            printf("gets here collide\n");
             return true;
         }
     }
@@ -87,7 +92,9 @@ void MotionObject::update() {
     printf("gets to the motion update\n");
     if(check_velocity()) {
         auto coords = return_coords();
+        //std::vector<Object *> objs = {};
         move(x_vel, y_vel, map_ref->get_nearby_objects(coords));
+        //move(x_vel, y_vel, objs);
     }
 }
 
